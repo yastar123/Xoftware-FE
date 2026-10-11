@@ -11,7 +11,7 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **Why:** The full project export includes the original compiled login/dashboard runtime. The earlier static login replacement did not match the source app's auth navigation.
 
-**How to apply:** Keep the actual Next bundles on `/login` and `/owner`, with same-origin `/v2` and `/ws` proxying in preview. Do not inject the static login helper on those routes. React hydration #421 and Vercel analytics 404s have appeared in browser logs; the signed-in flow still needs user verification.
+**How to apply:** Keep the actual Next bundles on `/login` and `/owner`, with same-origin `/v2` and `/ws` proxying in preview. Do not inject the static login helper on those routes. The capture browser is unauthenticated, so a route screenshot only proves reachability; verify owner interactions in a real signed-in session or an authenticated end-to-end test. React hydration #421 and Vercel analytics 404s have appeared in browser logs.
 
 **Owner dashboard presentation:** For owner-only visual changes, attach route-scoped assets to the packaged `/owner` export until the original Next pages are connected to the active preview.
 
