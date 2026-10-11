@@ -115,6 +115,7 @@
   }
 
   function getSidebarRail(menuItem) {
+    const isDesktop = window.matchMedia('(min-width: 900px)').matches;
     let candidate = menuItem.parentElement;
     while (candidate && candidate !== document.body) {
       const style = window.getComputedStyle(candidate);
@@ -122,7 +123,7 @@
       if (
         style.position === 'fixed' &&
         bounds.left <= 2 &&
-        bounds.left >= -bounds.width - 2 &&
+        (!isDesktop || bounds.left >= -bounds.width - 2) &&
         bounds.height >= window.innerHeight * 0.7 &&
         bounds.width <= 360
       ) {
@@ -186,6 +187,9 @@
     }
 
     iconHost.classList.add('owner-nav-icon-wrap');
+    [...element.children]
+      .filter(child => child !== iconHost && child.querySelector('svg'))
+      .forEach(child => child.classList.add('owner-nav-trailing-icon'));
     const currentKey = element.dataset.ownerIconKey;
     if (currentKey !== key) {
       iconHost.replaceChildren(makeIcon(key));
@@ -318,13 +322,16 @@
 
     const main = getMainContent();
     if (!rail.classList.contains('owner-sidebar-rail')) {
-      sidebarPinned = main
-        ? Number.parseFloat(window.getComputedStyle(main).marginLeft) >= 200
-        : rail.getBoundingClientRect().width >= 200;
+      const isDesktop = window.matchMedia('(min-width: 900px)').matches;
+      sidebarPinned = isDesktop && (
+        main
+          ? Number.parseFloat(window.getComputedStyle(main).marginLeft) >= 200
+          : rail.getBoundingClientRect().width >= 200
+      );
       rail.classList.add('owner-sidebar-rail');
       rail.dataset.ownerPinned = String(sidebarPinned);
       rail.addEventListener('mouseenter', () => {
-        if (!sidebarPinned && window.matchMedia('(min-width: 900px)').matches) {
+        if (!sidebarPinned) {
           document.body.classList.add('owner-rail-hovered');
         }
       });
@@ -332,7 +339,7 @@
         document.body.classList.remove('owner-rail-hovered');
       });
       rail.addEventListener('focusin', () => {
-        if (!sidebarPinned && window.matchMedia('(min-width: 900px)').matches) {
+        if (!sidebarPinned) {
           document.body.classList.add('owner-rail-hovered');
         }
       });
@@ -341,6 +348,11 @@
           document.body.classList.remove('owner-rail-hovered');
         }
       });
+    }
+
+    const sidebarBackdrop = rail.previousElementSibling;
+    if (sidebarBackdrop?.classList.contains('MuiBackdrop-root')) {
+      sidebarBackdrop.classList.add('owner-sidebar-backdrop');
     }
 
     if (main && !main.classList.contains('owner-main')) {
@@ -354,7 +366,7 @@
 
     const appBarButtons = document.querySelectorAll('.MuiAppBar-root button');
     const sidebarToggle = appBarButtons[0];
-    if (sidebarToggle && !sidebarToggle.dataset.ownerToggleBound && window.matchMedia('(min-width: 900px)').matches) {
+    if (sidebarToggle && !sidebarToggle.dataset.ownerToggleBound) {
       sidebarToggle.setAttribute('aria-label', 'Buka atau ciutkan menu samping');
       sidebarToggle.addEventListener('click', () => {
         sidebarPinned = !sidebarPinned;

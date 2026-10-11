@@ -19,6 +19,12 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **How to apply:** Limit enhancements to `/owner`, preserve existing DOM callbacks and data flows, and verify both the served route and production-export injection. Prefer connecting the source pages before broad future redesigns.
 
+**Persistent owner navigation:** Keep the owner sidebar visible as an icon-only rail when collapsed, including on narrow screens; hovering or focusing expands it, and the hamburger toggles its width instead of hiding it.
+
+**Why:** The user explicitly wants navigation icons to remain available after closing the full sidebar.
+
+**How to apply:** On mobile, keep only the owner sidebar's drawer visible and suppress its own backdrop; do not hide modal or dialog backdrops.
+
 **Production login confirmation:** The user confirmed on October 11, 2026 that valid username/password login works on `xoftware.id`; this does not establish that the Replit preview's owner dashboard is functional.
 
 **Why:** Production authentication and the Replit preview use different origins and routing.
