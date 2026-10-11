@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Xoftware"
+description = "Xoftware Digital Indonesia's existing storefront and account experience for digital products, merchant management, and messaging automation."
+version = "1.0.0"
+id = "artifacts/xftware"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18579
+
+[services.development]
+run = "pnpm --filter @workspace/xoftware run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/xoftware", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/xftware/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18579"
+BASE_PATH = "/"

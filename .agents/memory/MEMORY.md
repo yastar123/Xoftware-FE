@@ -1,0 +1,1 @@
+- [Imported Xoftware site](xoftware-site-import.md) — use the ZIP's compiled export for preview until its Next-based source pages are connected to Vite.

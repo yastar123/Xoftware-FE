@@ -1,0 +1,138 @@
+
+:root {
+  --background: #F8FAFC;
+  --foreground: #0F172A;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes ripple {
+  0% {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+  }
+  100% {
+    width: 1000px;
+    height: 1000px;
+    opacity: 0;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0F172A;
+    --foreground: #F1F5F9;
+  }
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* .MuiChartsAxis-tickLabel {
+  font-size: 9px !important;
+} */
+
+text {
+  font-size: 9.4px !important;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pulse2 {
+    animation: pulse 2s ease-in-out infinite;
+    -webkit-animation: pulse 2s ease-in-out infinite;
+}
+.pulse {
+    animation: animate-shake 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes animate-shake {
+    0%,
+    10%,
+    65%,
+    100% {
+      transform: rotate(0deg) scale(1.0);
+    }
+  
+    30%,
+    40% {
+      transform: rotate(-1deg) scale(1.05);
+    }
+  
+    35%,
+    45% {
+      transform: rotate(1deg) scale(1.05);
+    }
+}
+
+.markdown-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+@keyframes rgb-animation {
+    0% {
+        background-position: 0 0; /* Posisi awal gradient */
+    }
+    100% {
+        background-position: 200% 0; /* Gradient bergerak ke kanan */
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
