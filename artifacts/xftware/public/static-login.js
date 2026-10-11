@@ -72,6 +72,9 @@
       ? '/__xoftware_api'
       : 'https://backend-s2.xoftware.id/v2';
   })();
+  const hostName = window.location.hostname.toLowerCase();
+  const canLoadTurnstile =
+    hostName === 'xoftware.id' || hostName.endsWith('.xoftware.id');
 
   let statusElement;
   let turnstileWidgetId = null;
@@ -101,6 +104,17 @@
   };
 
   const addTurnstile = (container) => {
+    if (!canLoadTurnstile) {
+      container.append(
+        makeElement(
+          'p',
+          'xoftware-auth-help',
+          'CAPTCHA hanya tersedia di domain resmi Xoftware. Login sungguhan mungkin tidak dapat diproses dari Preview.',
+        ),
+      );
+      return;
+    }
+
     const scriptId = 'xoftware-turnstile-script';
     let script = document.getElementById(scriptId);
     if (!script) {
