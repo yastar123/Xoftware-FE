@@ -17,6 +17,12 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **How to apply:** When `/owner` hangs in preview, focus diagnosis on dashboard runtime/hydration and preview routing, not on the user's credentials.
 
+**Owner preview scope:** The user wants `/owner` to run from this project/local preview, not redirect to the production domain.
+
+**Why:** This is an explicit requirement for the imported Xoftware project.
+
+**How to apply:** Keep the owner runtime and its backend API/WebSocket connections usable through the Replit preview; treat `xoftware.id` as production, not as the default dashboard target.
+
 **Preview server note:** Keep the artifact's declared `localPort` and service `PORT` aligned on a port supported by Replit. This static-export preview also runs more reliably without React/Tailwind processing and Replit-only development plugins; enabling those plugins caused the Vite process to exhaust its Node heap in the preview environment.
 
 **Why:** The imported artifact initially declared an unsupported high port, then Vite started but ran out of memory with the full development plugin set. A supported port and a lightweight static-preview plugin set brought the workflow up.

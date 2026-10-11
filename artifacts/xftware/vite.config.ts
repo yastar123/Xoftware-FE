@@ -27,6 +27,50 @@ if (!basePath) {
 }
 
 const publicRoot = path.resolve(import.meta.dirname, 'public');
+const ownerPreviewBridge = `<script>
+  (() => {
+    const upstreamHost = 'backend-s2.xoftware.id';
+    const localOrigin = window.location.origin;
+    const localize = (value) => {
+      try {
+        const url = new URL(String(value), window.location.href);
+        if (url.hostname !== upstreamHost) return value;
+        const origin = url.protocol === 'wss:'
+          ? localOrigin.replace(/^https:/, 'wss:')
+          : url.protocol === 'ws:'
+            ? localOrigin.replace(/^http:/, 'ws:')
+            : localOrigin;
+        return origin + url.pathname + url.search + url.hash;
+      } catch {
+        return value;
+      }
+    };
+
+    const originalFetch = window.fetch.bind(window);
+    window.fetch = (input, init) => {
+      if (input instanceof Request) {
+        const nextUrl = localize(input.url);
+        if (nextUrl !== input.url) input = new Request(nextUrl, input);
+      } else {
+        const nextUrl = localize(input);
+        if (nextUrl !== input) input = nextUrl;
+      }
+      return originalFetch(input, init);
+    };
+
+    const originalOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function(method, url, ...args) {
+      return originalOpen.call(this, method, localize(url), ...args);
+    };
+
+    const NativeWebSocket = window.WebSocket;
+    window.WebSocket = class extends NativeWebSocket {
+      constructor(url, protocols) {
+        super(localize(url), protocols);
+      }
+    };
+  })();
+</script>`;
 
 const staticExportCompatibility: Plugin = {
   name: 'xoftware-static-export-compatibility',
@@ -47,6 +91,12 @@ const staticExportCompatibility: Plugin = {
       if (
         pathname === '/' ||
         pathname.startsWith('/api/') ||
+        pathname === '/v2' ||
+        pathname.startsWith('/v2/') ||
+        pathname === '/ws' ||
+        pathname.startsWith('/ws/') ||
+        pathname === '/__xoftware_api' ||
+        pathname.startsWith('/__xoftware_api/') ||
         pathname.startsWith('/@') ||
         pathname.startsWith('/_next/')
       ) {
@@ -92,21 +142,29 @@ const staticExportCompatibility: Plugin = {
     });
   },
 
-  transformIndexHtml(html: string) {
-    const staticHtml = html
-      .replace(
-        /<script\b(?=[^>]*\bsrc=["']\/_next\/static\/)[^>]*><\/script>/g,
-        '',
-      )
-      .replace(
-        /<script\b(?=[^>]*\bid=["']__NEXT_DATA__["'])[^>]*>[\s\S]*?<\/script>/g,
-        '',
-      );
+  transformIndexHtml(html: string, context) {
+    const route = new URL(context.path, 'http://localhost').pathname.replace(/\/+$/, '') || '/';
+    const isOwnerPage = /^\/owner(?:\.html)?$/.test(route);
+    const staticHtml = isOwnerPage
+      ? html
+      : html
+          .replace(
+            /<script\b(?=[^>]*\bsrc=["']\/_next\/static\/)[^>]*><\/script>/g,
+            '',
+          )
+          .replace(
+            /<script\b(?=[^>]*\bid=["']__NEXT_DATA__["'])[^>]*>[\s\S]*?<\/script>/g,
+            '',
+          );
 
-    return staticHtml
+    const htmlWithOwnerBridge = isOwnerPage
+      ? staticHtml.replace('</body>', `${ownerPreviewBridge}</body>`)
+      : staticHtml;
+
+    const transformed = htmlWithOwnerBridge
       .replace(
-      '</head>',
-      `<style>
+        '</head>',
+        `<style>
         #__next [style*="opacity:0"][style*="transform"],
         #__next [style*="opacity: 0"][style*="transform"] {
           opacity: 1 !important;
@@ -114,11 +172,14 @@ const staticExportCompatibility: Plugin = {
           visibility: visible !important;
         }
       </style></head>`,
-      )
-      .replace(
-        '</body>',
-        '<script src="/static-navigation.js" defer></script><script src="/static-login.js" defer></script></body>',
       );
+
+    return isOwnerPage
+      ? transformed
+      : transformed.replace(
+          '</body>',
+          '<script src="/static-navigation.js" defer></script><script src="/static-login.js" defer></script></body>',
+        );
   },
 };
 
@@ -151,6 +212,15 @@ export default defineConfig({
     host: '0.0.0.0',
     allowedHosts: true,
     proxy: {
+      '/v2': {
+        target: 'https://backend-s2.xoftware.id',
+        changeOrigin: true,
+      },
+      '/ws': {
+        target: 'https://backend-s2.xoftware.id',
+        changeOrigin: true,
+        ws: true,
+      },
       '/__xoftware_api/owner/auth/login': {
         target: 'https://backend-s2.xoftware.id',
         changeOrigin: true,
