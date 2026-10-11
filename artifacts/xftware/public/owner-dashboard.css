@@ -207,12 +207,27 @@ body.owner-console
 }
 
 body.owner-console .owner-main {
+  box-sizing: border-box;
+  width: calc(100% - var(--owner-main-offset, 76px)) !important;
+  max-width: none !important;
+  margin-left: var(--owner-main-offset, 76px) !important;
   min-width: 0;
-  transition: margin-left 240ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  transition:
+    width 240ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    margin-left 240ms cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
-body.owner-console.owner-rail-hovered .owner-main {
-  margin-left: 264px !important;
+body.owner-console .owner-main .MuiContainer-root {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+@media (min-width: 900px) {
+  body.owner-console.owner-rail-hovered .owner-main {
+    width: calc(100% - 264px) !important;
+    margin-left: 264px !important;
+  }
 }
 
 body.owner-console .owner-welcome {
@@ -443,14 +458,10 @@ body.owner-console .MuiChip-root {
   }
 
   body.owner-console .owner-main {
-    width: calc(100% - 76px);
+    width: calc(100% - 76px) !important;
     margin-left: 76px !important;
     padding-right: max(16px, env(safe-area-inset-right));
     padding-left: max(16px, env(safe-area-inset-left));
-  }
-
-  body.owner-console.owner-rail-hovered .owner-main {
-    margin-left: 76px !important;
   }
 
   body.owner-console .owner-sidebar-rail {

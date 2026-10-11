@@ -23,7 +23,7 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **Why:** The user explicitly wants navigation icons to remain available after closing the full sidebar.
 
-**How to apply:** On mobile, keep only the owner sidebar's drawer visible and suppress its own backdrop; do not hide modal or dialog backdrops.
+**How to apply:** Keep icons visible when collapsed and let main content fill the space beside the rail; on mobile, keep only the owner sidebar's drawer visible and suppress its own backdrop. Do not hide modal or dialog backdrops.
 
 **Production login confirmation:** The user confirmed on October 11, 2026 that valid username/password login works on `xoftware.id`; this does not establish that the Replit preview's owner dashboard is functional.
 

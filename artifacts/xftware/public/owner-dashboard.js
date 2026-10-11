@@ -154,6 +154,15 @@
     document.body.classList.toggle('owner-console-dark', brightness < 110);
   }
 
+  function syncMainLayout() {
+    const desktop = window.matchMedia('(min-width: 900px)').matches;
+    document.body.style.setProperty(
+      '--owner-main-offset',
+      desktop && sidebarPinned ? '264px' : '76px',
+    );
+    document.body.dataset.ownerSidebarPinned = String(desktop && sidebarPinned);
+  }
+
   function enhanceMenuItem(element, rail) {
     const key = getMenuKey(element);
     if (!key || key === 'hamburger') return;
@@ -360,6 +369,7 @@
     }
 
     document.body.classList.add('owner-console');
+    syncMainLayout();
     syncTheme(rail);
     menuItems.forEach(element => enhanceMenuItem(element, rail));
     enhanceDashboardContent();
@@ -371,6 +381,7 @@
       sidebarToggle.addEventListener('click', () => {
         sidebarPinned = !sidebarPinned;
         rail.dataset.ownerPinned = String(sidebarPinned);
+        syncMainLayout();
         if (sidebarPinned) document.body.classList.remove('owner-rail-hovered');
       });
       sidebarToggle.dataset.ownerToggleBound = 'true';
