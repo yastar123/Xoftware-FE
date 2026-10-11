@@ -139,13 +139,6 @@ export default function OnboardingTour({ openMenu, setMobileOpen }) {
     return steps;
   }, [isMobile]);
 
-  useEffect(() => {
-    const hasSeenTour = localStorage.getItem('hasSeenTour');
-    if (!hasSeenTour) {
-      setTimeout(() => setRun(true), 1500);
-    }
-  }, []);
-
   const updateRect = useCallback(() => {
     if (!run) return;
     const step = tourSteps[stepIndex];

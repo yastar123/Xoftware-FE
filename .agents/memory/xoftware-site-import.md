@@ -48,3 +48,9 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 **Why:** Cloudflare validates the widget's allowed hostname, and this error is surfaced by Replit's runtime overlay as an artifact crash.
 
 **How to apply:** Load the production widget only on `xoftware.id` and its subdomains; show a clear preview notice elsewhere. Do not substitute a public test key for a production API verification flow.
+
+**Owner onboarding behavior:** Keep the dashboard tour user-initiated rather than opening it automatically after sign-in. The packaged `/owner` runtime's tour opens and closes the mobile drawer across steps and blocks direct clicks while active.
+
+**Why:** First-time sessions can appear to have a flickering sidebar that cannot be controlled while the guided overlay is running.
+
+**How to apply:** In the packaged preview, set the tour-seen flag before the Next runtime hydrates; retain the existing help button so the user can replay the tour. When the source pages become active, keep their tour manual as well.

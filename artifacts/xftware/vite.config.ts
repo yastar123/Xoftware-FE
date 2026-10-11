@@ -72,10 +72,25 @@ const accountPreviewBridge = `<script>
   })();
 </script>`;
 
-function injectOwnerDashboardAssets(html: string) {
-  if (html.includes('/owner-dashboard.js')) return html;
+const ownerTourAutostartGuard = `<script id="owner-tour-autostart-guard">
+  try {
+    window.localStorage.setItem('hasSeenTour', 'true');
+  } catch {}
+</script>`;
 
-  return html
+function injectOwnerDashboardAssets(html: string) {
+  let updated = html;
+
+  if (!updated.includes('id="owner-tour-autostart-guard"')) {
+    updated = updated.replace(
+      '</head>',
+      `${ownerTourAutostartGuard}</head>`,
+    );
+  }
+
+  if (updated.includes('/owner-dashboard.js')) return updated;
+
+  return updated
     .replace(
       '</head>',
       '<link rel="stylesheet" href="/owner-dashboard.css"></head>',
