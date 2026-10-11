@@ -11,6 +11,12 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **How to apply:** Treat the preview as server-rendered HTML. Restore only needed interactions with focused scripts and explicit Vite preview routes instead of re-enabling the old Next runtime. Login now has client-side steps, password reset and 2FA flows that call the existing API through restricted dev proxy routes; registration and owner-dashboard interactions still need verification.
 
+**Production login confirmation:** The user confirmed on October 11, 2026 that valid username/password login works on `xoftware.id`; this does not establish that the Replit preview's owner dashboard is functional.
+
+**Why:** The preview's `/owner` route currently receives only its static loading shell because the archived Next.js runtime is omitted there.
+
+**How to apply:** When `/owner` hangs in preview, focus diagnosis on dashboard runtime/hydration and preview routing, not on the user's credentials.
+
 **Preview server note:** Keep the artifact's declared `localPort` and service `PORT` aligned on a port supported by Replit. This static-export preview also runs more reliably without React/Tailwind processing and Replit-only development plugins; enabling those plugins caused the Vite process to exhaust its Node heap in the preview environment.
 
 **Why:** The imported artifact initially declared an unsupported high port, then Vite started but ran out of memory with the full development plugin set. A supported port and a lightweight static-preview plugin set brought the workflow up.
