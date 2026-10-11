@@ -1,0 +1,139 @@
+XOFTWARE DIGITAL INDONESIA
+Kami menyediakan platform yang dilengkapi dengan pembayaran Qris dan sistem otomatisasi penuh untuk memudahkan penjual (seller) dalam memasarkan dan menjual produk digital mereka.
+Integrasi Pembayaran
+Automasi WA/Telegram
+Anti-Pembajakan
+Affiliate/Reseller
+Dashboard Penjualan
+Total Transaksi
+
+1.7jt+
+Total User
+
+1.1jt+
+Our Solutions
+Layanan Unggulan Kami
+Solusi cerdas dan terintegrasi untuk membantu bisnis digital Anda tumbuh lebih cepat dan aman.
+
+E-Commerce Platform Digital
+CMS yang dioptimalkan khusus untuk produk virtual dan lisensi.
+
+Manajemen stok otomatis dan pengiriman instan.
+
+Mendukung berbagai kategori: Topup, Pulsa, Kursus, hingga Software.
+
+Automasi Chat & Keamanan
+Bot WhatsApp & Telegram untuk transaksi otomatis 24/7.
+
+Fitur anti-pembajakan tingkat lanjut untuk melindungi aset Anda.
+
+Notifikasi real-time langsung ke perangkat pelanggan.
+
+Pembayaran & Distribusi
+Integrasi QRIS, Virtual Account, dan E-Wallet lokal terlengkap.
+
+Sistem settlement otomatis yang cepat dan transparan.
+
+Jangkauan distribusi produk ke pasar lokal maupun global.
+
+Marketing & Business Insight
+Sistem Afiliasi & Reseller terintegrasi untuk mendongkrak penjualan.
+
+Dashboard Analitik real-time untuk memantau performa bisnis.
+
+Konsultasi strategi harga dan peluncuran produk.
+
+Why Choose Us
+Keunggulan Kompetitif
+Kami menghadirkan infrastruktur terbaik untuk memastikan bisnis digital Anda beroperasi dengan performa maksimal dan keamanan tanpa kompromi.
+
+Fokus pada Keamanan
+Keamanan data & produk jadi prioritas utama kami untuk ketenangan Anda.
+
+Customer-Centric
+Solusi dibangun berdasarkan feedback nyata dari kebutuhan penjual.
+
+Dukungan Penuh
+Bantuan teknis 24/7 untuk memastikan operasional Anda lancar.
+
+Skalabilitas
+Infrastruktur yang siap berkembang seiring pertumbuhan bisnis Anda.
+
+Frequently Asked Questions
+Butuh Jawaban Cepat?
+Kami telah merangkum beberapa hal yang sering ditanyakan pelanggan kami.
+
+​
+Cari pertanyaan...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Our Story
+Tentang Kami
+Membangun masa depan ekonomi digital Indonesia melalui inovasi dan integrasi tanpa batas.
+
+Platform Terpadu
+Solusi dari hosting hingga transaksi akhir yang siap pakai dalam satu ekosistem.
+
+Keamanan Berlapis
+Proteksi aset digital tingkat tinggi dengan sistem anti-pembajakan termutakhir.
+
+Keputusan Berbasis Data
+Analitik real-time yang mendalam untuk memandu strategi pertumbuhan bisnis Anda.
+
+Tech Enabler
+Digital Solution
+Innovation Hub
+XOFTWARE DIGITAL INDONESIA didirikan dengan semangat untuk menjembatani kesenjangan antara produk digital berkualitas tinggi dan pasar yang luas. Kami bukan sekadar perusahaan teknologi, melainkan mitra strategis bagi para kreator dan bisnis digital.
+
+Kami memahami tantangan dalam mendistribusikan karya digital, mulai dari masalah hosting yang stabil, integrasi pembayaran yang rumit, hingga risiko keamanan. Itulah mengapa kami hadir dengan infrastruktur lengkap—mencakup sistem pembayaran terintegrasi, otomasi chat, hingga analitik bisnis yang cerdas.
+
+Fokus kami adalah mempermudah setiap proses operasional, sehingga Anda dapat mencurahkan energi sepenuhnya pada inovasi dan penjualan produk. Bersama XOFTWARE, masa depan bisnis digital Anda ada dalam kendali yang aman dan terautomasi.
+
+Siap untuk Melipatgandakan Penjualan Anda?
+Bergabunglah dengan ribuan seller lainnya yang telah sukses mengotomatisasi bisnis digital mereka bersama XOFTWARE.
+XOFTWARE Logo
+XOFTWARE.ID
+Platform teknologi terdepan untuk ekosistem produk digital Indonesia. Kami menghadirkan solusi otomasi dan pembayaran yang aman, cerdas, dan terstandarisasi.
+
+Solusi
+E-Commerce Digital
+Automasi Chatbot
+Integrasi Pembayaran
+Sistem Afiliasi
+Perusahaan
+Tentang Kami
+Keunggulan
+FAQ
+Blog
+Legal
+Kebijakan Privasi
+Syarat & Ketentuan
+Pengumpulan Data
+Hubungi Kami
+support@xoftware.id
+
++62 813-7010-1295
+
+Jl. H. Imam Munandar No. 99 Bagan Batu, Rokan Hilir, Riau 28992
+
+© 2026 XOFTWARE DIGITAL INDONESIA. All rights reserved.
+Built for the digital future.
+[plugin:runtime-error-plugin] Minified React error #421; visit https://reactjs.org/docs/error-decoder.html?invariant=421 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
