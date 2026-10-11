@@ -438,21 +438,39 @@
 
     const appBarButtons = document.querySelectorAll('.MuiAppBar-root button');
     const sidebarToggle = appBarButtons[0];
-    if (sidebarToggle && desktop && !sidebarToggle.dataset.ownerToggleBound) {
+    if (sidebarToggle && desktop) {
       sidebarToggle.setAttribute('aria-label', 'Buka atau ciutkan menu samping');
-      sidebarToggle.addEventListener('click', () => {
-        sidebarPinned = !sidebarPinned;
-        rail.dataset.ownerPinned = String(sidebarPinned);
-        sidebarToggle.setAttribute('aria-expanded', String(sidebarPinned));
-        syncMainLayout();
-        document.body.classList.remove('owner-rail-hovered');
-      });
-      sidebarToggle.dataset.ownerToggleBound = 'true';
+      sidebarToggle.setAttribute('aria-expanded', String(sidebarPinned));
+
+      if (!document.documentElement.dataset.ownerSidebarToggleBound) {
+        document.addEventListener('click', event => {
+          const clickedButton = event.target instanceof Element
+            ? event.target.closest('.MuiAppBar-root button')
+            : null;
+          const appBar = clickedButton?.closest('.MuiAppBar-root');
+          if (
+            !clickedButton ||
+            clickedButton !== appBar?.querySelector('button') ||
+            !window.matchMedia('(min-width: 900px)').matches
+          ) {
+            return;
+          }
+
+          const currentRail = document.querySelector('#__next .owner-sidebar-rail');
+          if (!currentRail) return;
+
+          event.preventDefault();
+          event.stopPropagation();
+          sidebarPinned = !sidebarPinned;
+          currentRail.dataset.ownerPinned = String(sidebarPinned);
+          clickedButton.setAttribute('aria-expanded', String(sidebarPinned));
+          document.body.classList.remove('owner-rail-hovered');
+          syncMainLayout();
+        }, true);
+        document.documentElement.dataset.ownerSidebarToggleBound = 'true';
+      }
     } else if (sidebarToggle && !desktop) {
       sidebarToggle.setAttribute('aria-label', 'Buka menu samping');
-    }
-    if (sidebarToggle && desktop) {
-      sidebarToggle.setAttribute('aria-expanded', String(sidebarPinned));
     }
     const themeToggle = appBarButtons[1];
     if (themeToggle && !themeToggle.dataset.ownerThemeBound) {
