@@ -4,14 +4,15 @@ Xoftware Digital Indonesia is a storefront and account experience for digital pr
 
 ## Run & Operate
 
-- Web preview: start the managed `artifacts/xftware: web` workflow. It runs `pnpm --filter @workspace/xoftware run dev` with the required `PORT` and `BASE_PATH` values.
+- Web preview: start the managed `artifacts/xftware: web` workflow. It runs `pnpm --filter @workspace/xoftware run dev` with the required `PORT` and `BASE_PATH` values and serves the packaged website export.
+- Preview account pages (`/login` and `/owner`) send API and WebSocket traffic through the preview to `backend-s2.xoftware.id`; their functionality depends on that upstream service.
 - Install workspace dependencies: `pnpm install --frozen-lockfile`
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- Backend-only env: `DATABASE_URL` — Postgres connection string required to run the local API server; the public web preview does not require it.
 
 ## Stack
 
