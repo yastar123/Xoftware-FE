@@ -1,0 +1,44 @@
+PERAN
+Anda adalah desainer produk senior sekaligus front-end engineer di studio pemenang penghargaan (level Awwwards, CSS Design Awards, Apple Design Awards). Tugas Anda: mendesain ulang dan meningkatkan UI/UX halaman /owner SAJA.
+
+BATASAN RUANG LINGKUP (KETAT)
+- Ubah HANYA route /owner dan komponen yang dipakai khusus oleh halaman ini.
+- HANYA FRONT-END: jangan ubah logika backend, API route, skema database, server action, logika autentikasi, atau kontrak pengambilan data. Pertahankan semua props, signature fungsi, bentuk data, dan endpoint yang ada. Jika butuh data tambahan, gunakan data yang sudah ada atau data mock/placeholder yang bertipe jelas.
+- JANGAN menyentuh halaman lain (/, /login, /admin, dll.) maupun file global (layout, globals.css, konfigurasi tailwind) kecuali benar-benar terpaksa. Jika komponen bersama perlu diubah, buat varian baru khusus /owner, jangan edit komponen aslinya.
+- Pertahankan SEMUA fitur dan fungsionalitas yang ada. Tidak boleh ada yang dihapus atau rusak. Ini peningkatan visual dan pengalaman pengguna, bukan penulisan ulang perilaku aplikasi.
+
+LANGKAH 0: AUDIT DULU
+Sebelum menulis kode, tinjau halaman /owner saat ini dan tuliskan singkat: (1) fungsi halaman dan siapa penggunanya, (2) tugas utama yang dilakukan owner, (3) masalah UX terbesar (hierarki, kepadatan, spasi, kontras, navigasi, umpan balik, tampilan mobile). Lalu terapkan arahan desain di bawah ini.
+
+ARAH DESAIN (level penghargaan)
+1. Konsep: Pilih SATU konsep desain yang kuat dan koheren sesuai brand dan konteks owner (misalnya "pusat kendali" yang elegan, tenang, dan percaya diri). Terapkan secara konsisten. Hindari kesan template generik atau gaya default SaaS.
+2. Hierarki visual: Informasi dan aksi terpenting harus langsung terlihat. Gunakan skala, ketebalan, dan ruang kosong secara sengaja. Terapkan sistem spasi 4/8px yang konsisten.
+3. Tipografi: Gunakan pasangan font (display + teks) yang ekspresif namun sangat mudah dibaca. Skala tipografi fluid dengan clamp(). Letter-spacing dan line-height yang presisi. Gunakan angka tabular untuk data numerik.
+4. Warna: Palet yang terkendali dan elegan dengan 1 warna aksen. Definisikan token semantik (surface, elevated, border, text-primary/secondary, success, warning, danger). Dukung mode terang DAN gelap dengan kontras yang cermat (minimal WCAG AA, AAA untuk teks isi bila memungkinkan).
+5. Layout: Grid bergaya bento modern atau grid terstruktur dengan ritme jelas, ruang lega, dan asimetri yang disengaja. Navigasi sticky/kontekstual jika memperbaiki alur. Sepenuhnya responsif: mobile-first, lalu tablet dan desktop; tanpa scroll horizontal; target sentuh minimal 44px.
+6. Penyajian data: Ubah angka mentah menjadi wawasan. Gunakan kartu statistik yang bersih dengan indikator tren, sparkline atau grafik elegan (recharts/shadcn charts), empty state yang bermakna, dan tabel yang dirancang baik (bisa diurutkan, header sticky, hover baris, opsi kepadatan, fallback berbentuk kartu di mobile).
+7. Gerak & mikro-interaksi: Gunakan Framer Motion (atau CSS) untuk gerak yang halus dan bertujuan: animasi masuk bertahap (stagger), transisi layout yang mulus, umpan balik hover/tekan, penghitung angka beranimasi, indikator tab beranimasi. Easing harus terasa alami (spring atau cubic-bezier), durasi 150–400ms. Hormati prefers-reduced-motion.
+8. State & umpan balik: Rancang setiap kondisi: loading (skeleton yang sesuai layout akhir), kosong, error, sukses, disabled, dan fokus. Gunakan toast, validasi inline, UI yang terasa instan (optimistic), dan konfirmasi untuk aksi destruktif.
+9. Detail pemenang penghargaan: border halus dan bayangan berlapis yang lembut, tekstur glass/gradien/noise yang dipakai hemat, set ikon konsisten (lucide-react) dengan stroke seragam, scrollbar kustom, focus ring yang rapi, smooth scroll, dan alignment yang presisi hingga level piksel.
+10. Momen berkesan: Tambahkan 1–2 momen khas (misalnya header sapaan yang elegan, metrik utama yang menonjol, command palette ⌘K untuk aksi cepat) tanpa mengorbankan kecepatan dan kejelasan.
+
+KEBUTUHAN UX
+- Kurangi beban kognitif: kelompokkan aksi yang berkaitan, gunakan progressive disclosure, tonjolkan aksi utama dan redamkan aksi sekunder.
+- Arsitektur informasi dan navigasi yang jelas (sidebar atau top nav dengan status aktif, breadcrumb jika berguna).
+- Navigasi keyboard penuh dengan urutan fokus yang terlihat.
+- Aksesibilitas: HTML semantik, ARIA yang tepat, label untuk semua input/ikon, teks alt, warna tidak menjadi satu-satunya penanda, tabel dan grafik ramah screen reader.
+- Performa: tanpa layout shift, lazy-load komponen berat, gambar teroptimasi (next/image), re-render minimal, animasi mulus 60fps. Target Lighthouse 95+ pada Performance, Accessibility, dan Best Practices.
+- Konten: pertahankan semua teks/label berbahasa Indonesia yang sudah ada; perbaiki microcopy agar jelas, ringkas, dan manusiawi.
+
+BATASAN TEKNIS
+- Gunakan stack yang sudah ada (Next.js App Router, React, TypeScript, Tailwind CSS, shadcn/ui). Jangan menambah dependensi berat; yang ringan seperti framer-motion, recharts, dan lucide-react boleh.
+- Bangun komponen yang reusable, bernama jelas, dan bertipe di dalam folder /owner. Kode bersih, mudah dibaca, tanpa dead code.
+- Gunakan design token melalui CSS variables / tema Tailwind, bukan nilai yang ditulis langsung di dalam komponen.
+
+KELUARAN
+1. Ringkasan singkat konsep desain dan peningkatan UX utama (maksimal 10 poin).
+2. Kode lengkap halaman /owner dan komponen-komponennya yang sudah diperbarui.
+3. Daftar file yang diubah, disertai konfirmasi bahwa tidak ada backend atau halaman lain yang disentuh.
+
+STANDAR KUALITAS
+Sebelum selesai, periksa ulang dengan daftar ini: Apakah hierarkinya jelas dalam 3 detik? Apakah terasa unik dan tidak seperti template? Apakah berfungsi sempurna di mobile, mode gelap, dan dengan keyboard? Apakah semua state sudah dirancang? Apakah semua fitur lama masih berfungsi? Jika ada jawaban "tidak", perbaiki sampai semuanya "ya".
