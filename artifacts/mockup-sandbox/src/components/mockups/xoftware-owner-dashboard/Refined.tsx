@@ -30,6 +30,7 @@ import {
   X,
 } from "lucide-react";
 import "./_group.css";
+import "./Refined.css";
 
 type Announcement = {
   id: number;
@@ -180,7 +181,6 @@ export function Refined() {
   const [announcementState, setAnnouncementState] = useState<"loading" | "ready" | "empty" | "error">("loading");
   const [selected, setSelected] = useState<Announcement | null>(null);
   const [toast, setToast] = useState("");
-  const [accountOpen, setAccountOpen] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
@@ -239,7 +239,6 @@ export function Refined() {
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setMobileOpen(false);
-        setAccountOpen(false);
       }
     };
     window.addEventListener("keydown", closeOnEscape);
@@ -274,6 +273,17 @@ export function Refined() {
     }
   };
 
+  const retryAnnouncements = async () => {
+    setAnnouncementState("loading");
+    try {
+      const response = await requestOwner("getAllAnnouncements");
+      setAnnouncements(response.data);
+      setAnnouncementState(response.data.length ? "ready" : "empty");
+    } catch {
+      setAnnouncementState("error");
+    }
+  };
+
   const selectNavigation = (key: string, label: string) => {
     setActiveKey(key);
     setActiveLabel(label);
@@ -305,14 +315,7 @@ export function Refined() {
         <button className="xor-round-button" aria-label="Lihat pengumuman" onClick={() => document.getElementById("xor-announcements")?.scrollIntoView({ behavior: "smooth", block: "center" })}>
           <Bell size={17} />
         </button>
-        <button className="xor-user" aria-label="Buka menu akun" aria-expanded={accountOpen} onClick={() => setAccountOpen((value) => !value)}>U</button>
-        {accountOpen && (
-          <div className="xor-account-menu">
-            <strong>Owner</strong>
-            <span>Menu akun</span>
-            <button onClick={() => { setAccountOpen(false); setToast("Keluar tersedia saat membuka aplikasi owner."); }}>Keluar</button>
-          </div>
-        )}
+        <span className="xor-user" aria-label="Akun owner">U</span>
       </header>
 
       {mobileOpen && <button className="xor-mobile-backdrop" aria-label="Tutup menu samping" onClick={() => setMobileOpen(false)} />}
@@ -350,7 +353,7 @@ export function Refined() {
           <div>
             <p className="xor-eyebrow"><span className="xor-live-dot" /> Pusat kendali / owner</p>
             <h1>Halo Owner</h1>
-            <p>Ringkasan operasional akun dan transaksi Anda.</p>
+            <p>“Kesuksesan bukan soal keberuntungan, tapi soal konsistensi.”</p>
           </div>
           <span className="xor-time">Waktu sekarang<br /><strong>{clock} WIB</strong></span>
         </div>
@@ -429,7 +432,10 @@ export function Refined() {
                 {announcementState === "loading" ? (
                   <div className="xor-skeleton" aria-label="Memuat pengumuman" aria-busy="true"><span /><span /><span /></div>
                 ) : announcementState === "error" ? (
-                  <div className="xor-error" role="alert">Gagal memuat pengumuman. Silakan coba lagi nanti.</div>
+                  <div className="xor-error" role="alert">
+                    Gagal memuat pengumuman.
+                    <button className="xor-retry" onClick={() => void retryAnnouncements()}>Coba lagi</button>
+                  </div>
                 ) : announcementState === "empty" || announcements.length === 0 ? (
                   <div className="xor-empty">Belum ada pengumuman.<br />Informasi baru akan muncul di sini.</div>
                 ) : (
@@ -456,14 +462,6 @@ export function Refined() {
                 )}
               </div>
             </section>
-            <div className="xor-status-note">
-              <ShieldIcon />
-              <span>Ringkasan ini mengikuti data akun Anda. Nilai demo hanya tampil di pratinjau desain.</span>
-            </div>
-            <div className="xor-status-note">
-              <ChartNoAxesCombined aria-hidden="true" />
-              <span>Grafik menampilkan transaksi berhasil, pending, dan gagal sesuai rentang pilihan.</span>
-            </div>
           </aside>
         </div>
       </main>
@@ -490,8 +488,4 @@ export function Refined() {
       {toast && <div className="xor-toast" role="status" aria-live="polite">{toast}</div>}
     </div>
   );
-}
-
-function ShieldIcon() {
-  return <LockKeyhole aria-hidden="true" />;
 }
