@@ -27,9 +27,37 @@ if (!basePath) {
   );
 }
 
+const staticExportCompatibility = {
+  name: 'xoftware-static-export-compatibility',
+  transformIndexHtml(html: string) {
+    const staticHtml = html
+      .replace(
+        /<script\b(?=[^>]*\bsrc=["']\/_next\/static\/)[^>]*><\/script>/g,
+        '',
+      )
+      .replace(
+        /<script\b(?=[^>]*\bid=["']__NEXT_DATA__["'])[^>]*>[\s\S]*?<\/script>/g,
+        '',
+      );
+
+    return staticHtml.replace(
+      '</head>',
+      `<style>
+        #__next [style*="opacity:0"][style*="transform"],
+        #__next [style*="opacity: 0"][style*="transform"] {
+          opacity: 1 !important;
+          transform: none !important;
+          visibility: visible !important;
+        }
+      </style></head>`,
+    );
+  },
+};
+
 export default defineConfig({
   base: basePath,
   plugins: [
+    staticExportCompatibility,
     react(),
     tailwindcss(),
     runtimeErrorOverlay(),
