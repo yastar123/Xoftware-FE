@@ -7,15 +7,17 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **Why:** The request was to run the existing website, not to rebuild its frontend or migrate routing and framework integrations.
 
-**Operational note:** Loading the archived Next.js runtime alongside Vite caused React error #421 (a Suspense update before hydration completed) and requests for Vercel analytics endpoints. The current preview removes those scripts and exposes the server-rendered motion content.
+**Operational note:** The preview serves the compiled Next.js export through Vite. Its original Next runtime is enabled on `/login` and `/owner`; other routes stay static. The account pages proxy API and Socket.IO traffic through the preview origin.
 
-**How to apply:** Treat the preview as server-rendered HTML. Restore only needed interactions with focused scripts and explicit Vite preview routes instead of re-enabling the old Next runtime. Login now has client-side steps, password reset and 2FA flows that call the existing API through restricted dev proxy routes; registration and owner-dashboard interactions still need verification.
+**Why:** The full project export includes the original compiled login/dashboard runtime. The earlier static login replacement did not match the source app's auth navigation.
+
+**How to apply:** Keep the actual Next bundles on `/login` and `/owner`, with same-origin `/v2` and `/ws` proxying in preview. Do not inject the static login helper on those routes. React hydration #421 and Vercel analytics 404s have appeared in browser logs; the signed-in flow still needs user verification.
 
 **Production login confirmation:** The user confirmed on October 11, 2026 that valid username/password login works on `xoftware.id`; this does not establish that the Replit preview's owner dashboard is functional.
 
-**Why:** The preview's `/owner` route currently receives only its static loading shell because the archived Next.js runtime is omitted there.
+**Why:** Production authentication and the Replit preview use different origins and routing.
 
-**How to apply:** When `/owner` hangs in preview, focus diagnosis on dashboard runtime/hydration and preview routing, not on the user's credentials.
+**How to apply:** When preview login succeeds but `/owner` does not open, check cookie persistence, the `/v2/owner/auth/check` response, and the `/ws` connection before blaming the credentials.
 
 **Owner preview scope:** The user wants `/owner` to run from this project/local preview, not redirect to the production domain.
 
@@ -27,7 +29,7 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **Why:** The imported artifact initially declared an unsupported high port, then Vite started but ran out of memory with the full development plugin set. A supported port and a lightweight static-preview plugin set brought the workflow up.
 
-**How to apply:** When changing preview setup, check the supported managed-workflow ports and preserve the lean Vite dev configuration. Keep framework plugins for production builds if needed; do not re-enable the archived Next runtime.
+**How to apply:** When changing preview setup, check the supported managed-workflow ports and preserve the lean Vite dev configuration. Keep the Vite React/Tailwind plugins off in development; the packaged Next bundles already contain the page runtime.
 
 **Preview CAPTCHA note:** The official-domain Turnstile key throws uncaught Cloudflare error 110200 on local and Replit preview hosts.
 

@@ -27,7 +27,7 @@ if (!basePath) {
 }
 
 const publicRoot = path.resolve(import.meta.dirname, 'public');
-const ownerPreviewBridge = `<script>
+const accountPreviewBridge = `<script>
   (() => {
     const upstreamHost = 'backend-s2.xoftware.id';
     const localOrigin = window.location.origin;
@@ -144,8 +144,8 @@ const staticExportCompatibility: Plugin = {
 
   transformIndexHtml(html: string, context) {
     const route = new URL(context.path, 'http://localhost').pathname.replace(/\/+$/, '') || '/';
-    const isOwnerPage = /^\/owner(?:\.html)?$/.test(route);
-    const staticHtml = isOwnerPage
+    const usesNextRuntime = /^\/(?:login|owner)(?:\.html)?$/.test(route);
+    const staticHtml = usesNextRuntime
       ? html
       : html
           .replace(
@@ -157,11 +157,11 @@ const staticExportCompatibility: Plugin = {
             '',
           );
 
-    const htmlWithOwnerBridge = isOwnerPage
-      ? staticHtml.replace('</body>', `${ownerPreviewBridge}</body>`)
+    const htmlWithApiBridge = usesNextRuntime
+      ? staticHtml.replace('</body>', `${accountPreviewBridge}</body>`)
       : staticHtml;
 
-    const transformed = htmlWithOwnerBridge
+    const transformed = htmlWithApiBridge
       .replace(
         '</head>',
         `<style>
@@ -174,7 +174,7 @@ const staticExportCompatibility: Plugin = {
       </style></head>`,
       );
 
-    return isOwnerPage
+    return usesNextRuntime
       ? transformed
       : transformed.replace(
           '</body>',
