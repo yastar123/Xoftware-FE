@@ -119,7 +119,7 @@ const staticExportCompatibility: Plugin = {
       )
       .replace(
         '</body>',
-        '<script src="/static-navigation.js" defer></script></body>',
+        '<script src="/static-navigation.js" defer></script><script src="/static-login.js" defer></script></body>',
       );
   },
 };
@@ -167,6 +167,23 @@ export default defineConfig({
     strictPort: true,
     host: '0.0.0.0',
     allowedHosts: true,
+    proxy: {
+      '/__xoftware_api/owner/auth/login': {
+        target: 'https://backend-s2.xoftware.id',
+        changeOrigin: true,
+        rewrite: (requestPath) => requestPath.replace('/__xoftware_api', '/v2'),
+      },
+      '/__xoftware_api/owner/auth/forgot-password/request': {
+        target: 'https://backend-s2.xoftware.id',
+        changeOrigin: true,
+        rewrite: (requestPath) => requestPath.replace('/__xoftware_api', '/v2'),
+      },
+      '/__xoftware_api/owner/auth/forgot-password/action': {
+        target: 'https://backend-s2.xoftware.id',
+        changeOrigin: true,
+        rewrite: (requestPath) => requestPath.replace('/__xoftware_api', '/v2'),
+      },
+    },
     fs: {
       strict: true,
     },

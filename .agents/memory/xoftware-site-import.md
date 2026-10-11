@@ -9,4 +9,4 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **Operational note:** Loading the archived Next.js runtime alongside Vite caused React error #421 (a Suspense update before hydration completed) and requests for Vercel analytics endpoints. The current preview removes those scripts and exposes the server-rendered motion content.
 
-**How to apply:** Treat the preview as server-rendered static HTML. `public/static-navigation.js` restores the landing-page menu, section links, FAQ search/accordion, and key CTAs; Vite middleware maps exported `.html` pages to friendly preview routes. Login/register page submission and API-backed actions still need the original app runtime and backend.
+**How to apply:** Treat the preview as server-rendered HTML. Restore only needed interactions with focused scripts and explicit Vite preview routes instead of re-enabling the old Next runtime. Login now has client-side steps, password reset and 2FA flows that call the existing API through restricted dev proxy routes; registration and owner-dashboard interactions still need verification.
