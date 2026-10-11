@@ -9,7 +9,7 @@ router = "path"
 [[services]]
 name = "web"
 paths = [ "/" ]
-localPort = 18579
+localPort = 5173
 
 [services.development]
 run = "pnpm --filter @workspace/xoftware run dev"
@@ -24,5 +24,5 @@ from = "/*"
 to = "/index.html"
 
 [services.env]
-PORT = "18579"
+PORT = "5173"
 BASE_PATH = "/"

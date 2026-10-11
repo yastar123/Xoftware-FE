@@ -11,6 +11,12 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **How to apply:** Treat the preview as server-rendered HTML. Restore only needed interactions with focused scripts and explicit Vite preview routes instead of re-enabling the old Next runtime. Login now has client-side steps, password reset and 2FA flows that call the existing API through restricted dev proxy routes; registration and owner-dashboard interactions still need verification.
 
+**Preview server note:** Keep the artifact's declared `localPort` and service `PORT` aligned on a port supported by Replit. This static-export preview also runs more reliably without React/Tailwind processing and Replit-only development plugins; enabling those plugins caused the Vite process to exhaust its Node heap in the preview environment.
+
+**Why:** The imported artifact initially declared an unsupported high port, then Vite started but ran out of memory with the full development plugin set. A supported port and a lightweight static-preview plugin set brought the workflow up.
+
+**How to apply:** When changing preview setup, check the supported managed-workflow ports and preserve the lean Vite dev configuration. Keep framework plugins for production builds if needed; do not re-enable the archived Next runtime.
+
 **Preview CAPTCHA note:** The official-domain Turnstile key throws uncaught Cloudflare error 110200 on local and Replit preview hosts.
 
 **Why:** Cloudflare validates the widget's allowed hostname, and this error is surfaced by Replit's runtime overlay as an artifact crash.

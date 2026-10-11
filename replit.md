@@ -1,9 +1,11 @@
-# [Project name]
+# Xoftware
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Xoftware Digital Indonesia is a storefront and account experience for digital products, merchant management, and messaging automation.
 
 ## Run & Operate
 
+- Web preview: start the managed `artifacts/xftware: web` workflow. It runs `pnpm --filter @workspace/xoftware run dev` with the required `PORT` and `BASE_PATH` values.
+- Install workspace dependencies: `pnpm install --frozen-lockfile`
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
