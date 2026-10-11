@@ -406,7 +406,8 @@ export default function Sidebar({
       {isDesktop && (
         <>
           <Box
-            onMouseEnter={() => setIsHovered(true)}
+              onMouseEnter={event => setIsHovered(event.clientY > 56)}
+              onMouseMove={event => setIsHovered(event.clientY > 56)}
             onMouseLeave={() => setIsHovered(false)}
             sx={{
               position: 'fixed',

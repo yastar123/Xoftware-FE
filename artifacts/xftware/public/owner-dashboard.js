@@ -377,27 +377,35 @@
       );
       rail.classList.add('owner-sidebar-rail');
       rail.dataset.ownerPinned = String(sidebarPinned);
-      if (desktop) {
-        rail.addEventListener('mouseenter', () => {
-          if (!sidebarPinned) {
-            document.body.classList.add('owner-rail-hovered');
-          }
-        });
-        rail.addEventListener('mouseleave', () => {
-          document.body.classList.remove('owner-rail-hovered');
-        });
-        rail.addEventListener('focusin', () => {
-          if (!sidebarPinned) {
-            document.body.classList.add('owner-rail-hovered');
-          }
-        });
-        rail.addEventListener('focusout', event => {
-          if (!rail.contains(event.relatedTarget)) {
-            document.body.classList.remove('owner-rail-hovered');
-          }
-        });
-      }
     }
+
+    if (desktop && !rail.dataset.ownerHoverBound) {
+      rail.addEventListener('mouseenter', event => {
+        if (!sidebarPinned && event.clientY > 56) {
+          document.body.classList.add('owner-rail-hovered');
+        }
+      });
+      rail.addEventListener('mousemove', event => {
+        if (!sidebarPinned) {
+          document.body.classList.toggle('owner-rail-hovered', event.clientY > 56);
+        }
+      });
+      rail.addEventListener('mouseleave', () => {
+        document.body.classList.remove('owner-rail-hovered');
+      });
+      rail.addEventListener('focusin', () => {
+        if (!sidebarPinned) {
+          document.body.classList.add('owner-rail-hovered');
+        }
+      });
+      rail.addEventListener('focusout', event => {
+        if (!rail.contains(event.relatedTarget)) {
+          document.body.classList.remove('owner-rail-hovered');
+        }
+      });
+      rail.dataset.ownerHoverBound = 'true';
+    }
+    if (!desktop) document.body.classList.remove('owner-rail-hovered');
 
     const sidebarBackdrop = rail.previousElementSibling;
     if (sidebarBackdrop?.classList.contains('MuiBackdrop-root') && desktop) {
@@ -435,12 +443,16 @@
       sidebarToggle.addEventListener('click', () => {
         sidebarPinned = !sidebarPinned;
         rail.dataset.ownerPinned = String(sidebarPinned);
+        sidebarToggle.setAttribute('aria-expanded', String(sidebarPinned));
         syncMainLayout();
-        if (sidebarPinned) document.body.classList.remove('owner-rail-hovered');
+        document.body.classList.remove('owner-rail-hovered');
       });
       sidebarToggle.dataset.ownerToggleBound = 'true';
     } else if (sidebarToggle && !desktop) {
       sidebarToggle.setAttribute('aria-label', 'Buka menu samping');
+    }
+    if (sidebarToggle && desktop) {
+      sidebarToggle.setAttribute('aria-expanded', String(sidebarPinned));
     }
     const themeToggle = appBarButtons[1];
     if (themeToggle && !themeToggle.dataset.ownerThemeBound) {

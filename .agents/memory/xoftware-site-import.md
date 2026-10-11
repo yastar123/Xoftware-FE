@@ -25,6 +25,12 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **How to apply:** Keep icons visible when collapsed and let main content fill the space beside the rail; on mobile, keep only the owner sidebar's drawer visible and suppress its own backdrop. Do not hide modal or dialog backdrops.
 
+**Hamburger and hover interaction:** Do not use `:hover` on the full-height desktop rail to expand it; gate hover expansion to pointer movement below the fixed app bar, while keeping keyboard focus expansion.
+
+**Why:** The hamburger occupies the rail's left-side area; broad hover expansion can immediately reopen a rail when the user clicks to collapse it.
+
+**How to apply:** Control collapsed hover expansion with an explicit state class driven by pointer position below the app bar, and clear it when the hamburger is clicked or the pointer leaves the rail.
+
 **Production login confirmation:** The user confirmed on October 11, 2026 that valid username/password login works on `xoftware.id`; this does not establish that the Replit preview's owner dashboard is functional.
 
 **Why:** Production authentication and the Replit preview use different origins and routing.
