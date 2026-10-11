@@ -13,6 +13,12 @@ The uploaded project includes a Vite artifact whose entry route is a scaffold pl
 
 **How to apply:** Keep the actual Next bundles on `/login` and `/owner`, with same-origin `/v2` and `/ws` proxying in preview. Do not inject the static login helper on those routes. React hydration #421 and Vercel analytics 404s have appeared in browser logs; the signed-in flow still needs user verification.
 
+**Owner dashboard presentation:** For owner-only visual changes, attach route-scoped assets to the packaged `/owner` export until the original Next pages are connected to the active preview.
+
+**Why:** The Vite preview serves compiled Next pages, so edits to the disconnected React source do not reach the running owner dashboard. The owner-only scope also keeps login, backend contracts, and other pages unchanged.
+
+**How to apply:** Limit enhancements to `/owner`, preserve existing DOM callbacks and data flows, and verify both the served route and production-export injection. Prefer connecting the source pages before broad future redesigns.
+
 **Production login confirmation:** The user confirmed on October 11, 2026 that valid username/password login works on `xoftware.id`; this does not establish that the Replit preview's owner dashboard is functional.
 
 **Why:** Production authentication and the Replit preview use different origins and routing.

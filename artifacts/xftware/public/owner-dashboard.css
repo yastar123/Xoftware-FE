@@ -1,0 +1,409 @@
+body.owner-console {
+  --owner-canvas: #f3f6fb;
+  --owner-surface: #ffffff;
+  --owner-elevated: #fbfcff;
+  --owner-border: #e3e9f2;
+  --owner-ink: #172338;
+  --owner-muted: #64748b;
+  --owner-accent: #5558dc;
+  --owner-accent-soft: rgba(85, 88, 220, 0.1);
+  --owner-success: #16845b;
+  --owner-warning: #9c6412;
+  --owner-danger: #c3424a;
+  color-scheme: light;
+  background-color: var(--owner-canvas);
+  color: var(--owner-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+body.owner-console.owner-console-dark {
+  --owner-canvas: #0b1220;
+  --owner-surface: #111c2d;
+  --owner-elevated: #17243a;
+  --owner-border: #29384d;
+  --owner-ink: #edf2fa;
+  --owner-muted: #a2b1c4;
+  --owner-accent: #a3a7ff;
+  --owner-accent-soft: rgba(163, 167, 255, 0.13);
+  --owner-success: #5fd3a4;
+  --owner-warning: #f0bd65;
+  --owner-danger: #ff858b;
+  color-scheme: dark;
+}
+
+body.owner-console #__next {
+  min-height: 100vh;
+  background-color: var(--owner-canvas);
+  color: var(--owner-ink);
+}
+
+body.owner-console .MuiAppBar-root {
+  background: color-mix(in srgb, var(--owner-surface) 90%, transparent) !important;
+  border-bottom: 1px solid var(--owner-border) !important;
+  box-shadow: 0 8px 28px rgba(23, 35, 56, 0.045) !important;
+  backdrop-filter: blur(16px);
+}
+
+body.owner-console .owner-sidebar-rail {
+  transition:
+    width 240ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    box-shadow 240ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+body.owner-console .owner-sidebar-rail[data-owner-pinned='false'] {
+  width: 76px !important;
+}
+
+body.owner-console .owner-sidebar-rail[data-owner-pinned='false']:hover,
+body.owner-console .owner-sidebar-rail[data-owner-pinned='false']:focus-within,
+body.owner-console .owner-sidebar-rail[data-owner-pinned='true'] {
+  width: 264px !important;
+  box-shadow: 14px 0 36px rgba(15, 23, 42, 0.12);
+}
+
+body.owner-console .owner-nav-item {
+  min-height: 44px;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+body.owner-console .owner-nav-item:hover {
+  transform: translateX(2px);
+}
+
+body.owner-console .owner-nav-item[aria-current='page'] {
+  background-color: var(--owner-accent-soft) !important;
+  color: var(--owner-accent) !important;
+}
+
+body.owner-console .owner-nav-item:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--owner-accent) 55%, white);
+  outline-offset: 2px;
+}
+
+body.owner-console .owner-nav-icon-wrap {
+  display: flex;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 32px;
+}
+
+body.owner-console .owner-nav-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  stroke: currentColor;
+}
+
+body.owner-console .owner-nav-child .owner-nav-icon {
+  width: 18px;
+  height: 18px;
+}
+
+body.owner-console
+  .owner-sidebar-rail[data-owner-pinned='false']
+  .owner-nav-label {
+  display: none !important;
+}
+
+body.owner-console
+  .owner-sidebar-rail[data-owner-pinned='false']:hover
+  .owner-nav-label,
+body.owner-console
+  .owner-sidebar-rail[data-owner-pinned='false']:focus-within
+  .owner-nav-label {
+  display: block !important;
+}
+
+body.owner-console .owner-main {
+  min-width: 0;
+  transition: margin-left 240ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+body.owner-console.owner-rail-hovered .owner-main {
+  margin-left: 264px !important;
+}
+
+body.owner-console .owner-welcome {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 136px;
+  padding: clamp(20px, 3vw, 32px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px !important;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(191, 197, 255, 0.23), transparent 28%),
+    linear-gradient(128deg, #20294a, #414e9c 66%, #535dc6) !important;
+  box-shadow: 0 20px 42px rgba(35, 47, 113, 0.19) !important;
+  color: #fff !important;
+}
+
+body.owner-console .owner-welcome::before {
+  display: block;
+  margin-bottom: 12px;
+  color: rgba(238, 241, 255, 0.72);
+  content: 'PUSAT KENDALI  /  OWNER';
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+body.owner-console .owner-welcome::after {
+  position: absolute;
+  z-index: -1;
+  right: -40px;
+  bottom: -90px;
+  width: 240px;
+  height: 240px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 24px rgba(255, 255, 255, 0.025),
+    0 0 0 48px rgba(255, 255, 255, 0.02);
+  content: '';
+  pointer-events: none;
+}
+
+body.owner-console .owner-welcome .MuiTypography-root {
+  color: #fff !important;
+}
+
+body.owner-console .owner-welcome .MuiTypography-h5 {
+  font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+  letter-spacing: -0.035em;
+}
+
+body.owner-console .owner-dashboard-layout {
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr) !important;
+  gap: clamp(16px, 2vw, 24px) !important;
+}
+
+body.owner-console .owner-metric-panel {
+  overflow: hidden;
+  border-radius: 18px !important;
+}
+
+body.owner-console .owner-metric-panel > .MuiCardContent-root {
+  padding: clamp(16px, 2vw, 24px) !important;
+}
+
+body.owner-console .owner-metric-tabs,
+body.owner-console .owner-chart-tabs {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px;
+  border: 1px solid var(--owner-border);
+  border-radius: 12px;
+  background: var(--owner-elevated);
+}
+
+body.owner-console .owner-metric-tabs .MuiButton-root,
+body.owner-console .owner-chart-tabs .MuiButton-root {
+  min-height: 40px;
+  border: 0;
+  border-radius: 9px;
+  color: var(--owner-muted);
+}
+
+body.owner-console .owner-metric-tabs .MuiButton-contained,
+body.owner-console .owner-chart-tabs .MuiButton-contained {
+  background: var(--owner-accent) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(85, 88, 220, 0.2) !important;
+}
+
+body.owner-console.owner-console-dark
+  .owner-metric-tabs
+  .MuiButton-contained,
+body.owner-console.owner-console-dark
+  .owner-chart-tabs
+  .MuiButton-contained {
+  color: #10162b !important;
+}
+
+body.owner-console .owner-stat-card {
+  min-height: 92px;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+}
+
+body.owner-console .owner-announcements,
+body.owner-console .owner-chart-card {
+  border-radius: 18px !important;
+}
+
+body.owner-console .owner-announcements {
+  position: sticky;
+  top: 76px;
+}
+
+body.owner-console .owner-chart-card {
+  padding: clamp(12px, 2vw, 20px) !important;
+}
+
+body.owner-console .owner-announcements .MuiListItemButton-root {
+  min-height: 48px;
+  border-radius: 10px;
+  transition: background-color 170ms ease;
+}
+
+body.owner-console .owner-announcements .MuiListItemButton-root:hover {
+  background: var(--owner-accent-soft);
+}
+
+body.owner-console .owner-announcements .MuiChip-root {
+  min-height: 28px;
+}
+
+body.owner-console .MuiTypography-root {
+  font-variant-numeric: tabular-nums;
+}
+
+body.owner-console .MuiTypography-h4,
+body.owner-console .MuiTypography-h5,
+body.owner-console .MuiTypography-h6 {
+  color: var(--owner-ink);
+  letter-spacing: -0.025em;
+}
+
+body.owner-console .MuiTypography-h4 {
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+}
+
+body.owner-console .MuiCard-root {
+  border: 1px solid var(--owner-border) !important;
+  border-radius: 16px !important;
+  background: var(--owner-surface) !important;
+  box-shadow: 0 8px 26px rgba(23, 35, 56, 0.045) !important;
+  transition:
+    transform 220ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+body.owner-console .MuiCard-root:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--owner-accent) 30%, var(--owner-border)) !important;
+  box-shadow: 0 14px 34px rgba(23, 35, 56, 0.08) !important;
+}
+
+body.owner-console .MuiTableCell-root {
+  border-color: var(--owner-border) !important;
+}
+
+body.owner-console .MuiTableHead-root .MuiTableCell-root {
+  background: var(--owner-elevated);
+  color: var(--owner-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+body.owner-console .MuiTableBody-root .MuiTableRow-root {
+  transition: background-color 160ms ease;
+}
+
+body.owner-console .MuiTableBody-root .MuiTableRow-root:hover {
+  background: var(--owner-accent-soft);
+}
+
+body.owner-console .MuiTableContainer-root {
+  max-width: 100%;
+  border: 1px solid var(--owner-border);
+  border-radius: 14px;
+  scrollbar-color: color-mix(in srgb, var(--owner-muted) 35%, transparent) transparent;
+  scrollbar-width: thin;
+}
+
+body.owner-console .MuiButton-root,
+body.owner-console .MuiIconButton-root {
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+body.owner-console .MuiButton-root {
+  min-height: 44px;
+  border-radius: 10px;
+}
+
+body.owner-console .MuiIconButton-root {
+  min-width: 40px;
+  min-height: 40px;
+}
+
+body.owner-console .MuiButton-root:focus-visible,
+body.owner-console .MuiIconButton-root:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--owner-accent) 55%, white);
+  outline-offset: 2px;
+}
+
+body.owner-console .MuiChip-root {
+  border-radius: 999px;
+}
+
+@media (max-width: 899px) {
+  body.owner-console {
+    overflow-x: hidden;
+  }
+
+  body.owner-console .owner-main {
+    width: 100%;
+    margin-left: 0 !important;
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-left: max(16px, env(safe-area-inset-left));
+  }
+
+  body.owner-console .owner-dashboard-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body.owner-console .owner-announcements {
+    position: static;
+  }
+
+  body.owner-console .owner-welcome {
+    min-height: 120px;
+  }
+
+  body.owner-console .owner-metric-tabs,
+  body.owner-console .owner-chart-tabs {
+    width: 100%;
+  }
+
+  body.owner-console .owner-metric-tabs .MuiButton-root,
+  body.owner-console .owner-chart-tabs .MuiButton-root {
+    flex: 1 1 auto;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  body.owner-console .owner-sidebar-rail {
+    width: min(85vw, 320px) !important;
+  }
+
+  body.owner-console .MuiTableContainer-root {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.owner-console *,
+  body.owner-console *::before,
+  body.owner-console *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,5 +1,5 @@
 import path from 'path';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, type Plugin } from 'vite';
@@ -72,6 +72,20 @@ const accountPreviewBridge = `<script>
   })();
 </script>`;
 
+function injectOwnerDashboardAssets(html: string) {
+  if (html.includes('/owner-dashboard.js')) return html;
+
+  return html
+    .replace(
+      '</head>',
+      '<link rel="stylesheet" href="/owner-dashboard.css"></head>',
+    )
+    .replace(
+      '</body>',
+      '<script src="/owner-dashboard.js" defer></script></body>',
+    );
+}
+
 const staticExportCompatibility: Plugin = {
   name: 'xoftware-static-export-compatibility',
 
@@ -142,9 +156,19 @@ const staticExportCompatibility: Plugin = {
     });
   },
 
+  async closeBundle() {
+    const ownerPagePath = path.resolve(
+      import.meta.dirname,
+      'dist/public/owner.html',
+    );
+    const ownerPage = await readFile(ownerPagePath, 'utf8');
+    await writeFile(ownerPagePath, injectOwnerDashboardAssets(ownerPage));
+  },
+
   transformIndexHtml(html: string, context) {
     const route = new URL(context.path, 'http://localhost').pathname.replace(/\/+$/, '') || '/';
     const usesNextRuntime = /^\/(?:login|owner)(?:\.html)?$/.test(route);
+    const isOwnerRoute = /^\/owner(?:\.html)?$/.test(route);
     const staticHtml = usesNextRuntime
       ? html
       : html
@@ -157,9 +181,13 @@ const staticExportCompatibility: Plugin = {
             '',
           );
 
-    const htmlWithApiBridge = usesNextRuntime
-      ? staticHtml.replace('</body>', `${accountPreviewBridge}</body>`)
+    const ownerEnhancedHtml = isOwnerRoute
+      ? injectOwnerDashboardAssets(staticHtml)
       : staticHtml;
+
+    const htmlWithApiBridge = usesNextRuntime
+      ? ownerEnhancedHtml.replace('</body>', `${accountPreviewBridge}</body>`)
+      : ownerEnhancedHtml;
 
     const transformed = htmlWithApiBridge
       .replace(
