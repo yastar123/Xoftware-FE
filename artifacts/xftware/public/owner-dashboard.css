@@ -248,10 +248,10 @@ body.owner-console .owner-welcome::before {
   display: block;
   margin-bottom: 12px;
   color: rgba(238, 241, 255, 0.72);
-  content: 'PUSAT KENDALI  /  OWNER';
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  content: 'Pusat Kendali Bisnis · Owner Console';
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
 body.owner-console .owner-welcome::after {

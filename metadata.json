@@ -1,0 +1,7 @@
+{
+  "name": "XOFTWARE Digital Indonesia",
+  "description": "Platform Penjualan Produk Digital Terpadu",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
